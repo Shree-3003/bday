@@ -68,7 +68,7 @@
     to { opacity: 1; }
   }
 
-  /* Slideshow */
+  /* Image box */
   .slideshow {
     position: relative;
     width: 80%;
@@ -85,15 +85,8 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    display: none;
     object-fit: cover;
     border-radius: 20px;
-    transition: opacity 1s ease-in-out;
-  }
-
-  .slide.active {
-    display: block;
-    opacity: 1;
   }
 
   /* Confetti */
@@ -145,9 +138,9 @@
 <p>This day is all about YOU!</p>
 <button onclick="alert('Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸')">Open your surprise 🎁</button>
 
-<!-- Slideshow -->
+<!-- Your Image -->
 <div class="slideshow">
-  <img src="ChatGPT Image Jul 9, 2025, 08_13_55 PM.png" class="slide active">
+  <img src="ChatGPT Image Jul 9, 2025, 08_13_55 PM.png" class="slide">
 </div>
 
 <!-- Music -->
@@ -168,15 +161,6 @@
     document.body.appendChild(confetti);
   }
 
-  // Slideshow
-  let slideIndex = 0;
-  const slides = document.querySelectorAll('.slide');
-  setInterval(() => {
-    slides[slideIndex].classList.remove('active');
-    slideIndex = (slideIndex + 1) % slides.length;
-    slides[slideIndex].classList.add('active');
-  }, 3000);
-
   // Floating Hearts
   setInterval(() => {
     const heart = document.createElement('div');
@@ -194,7 +178,7 @@
   for(let i=0;i<12;i++){
     const balloon = document.createElement('div');
     balloon.classList.add('balloon');
-    balloon.textContent = ['🎈','🎈','🎈','🎈'][Math.floor(Math.random()*4)];
+    balloon.textContent = '🎈';
     balloon.style.left = Math.random()*90+'vw';
     balloon.style.animationDuration = (8+Math.random()*5)+'s';
     balloon.onclick = () => alert(balloonMessages[Math.floor(Math.random()*balloonMessages.length)]);
@@ -204,4 +188,3 @@
 
 </body>
 </html>
-
