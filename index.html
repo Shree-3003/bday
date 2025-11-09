@@ -176,88 +176,78 @@
     opacity: 1;
   }
 
-  /* Flip Card Overlay */
-  .card-overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(255, 182, 193, 0.4);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-  }
-
-  .card-container {
-    perspective: 1000px;
-  }
-
-  .card {
-    width: 300px;
-    height: 200px;
+  /* Gift Box Animation */
+  .gift-box {
     position: relative;
-    transform-style: preserve-3d;
-    transition: transform 1s;
-  }
-
-  .card.is-flipped {
-    transform: rotateY(180deg);
-  }
-
-  .card-side {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-  .card-front {
-    background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
-    color: #d63384;
-    font-size: 1.5em;
-  }
-
-  .card-back {
-    background: #fff;
-    color: #d63384;
-    font-size: 1.3em;
-    transform: rotateY(180deg);
-    text-align: center;
-    padding: 20px;
-  }
-
-  .close-btn {
-    margin-top: 15px;
-    padding: 8px 20px;
-    border: none;
-    background: #ffb6c1;
-    border-radius: 10px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .close-btn:hover {
+    width: 100px;
+    height: 100px;
+    margin-top: 30px;
     background: #ff8fab;
-    transform: scale(1.1);
+    border-radius: 10px;
+    box-shadow: 0 0 25px rgba(255,105,180,0.4);
+    cursor: pointer;
+    animation: wiggle 2s ease-in-out infinite;
   }
 
-  /* Secret Gift Button Glow */
+  .gift-box::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 45%;
+    width: 10%;
+    height: 100%;
+    background: #fff;
+    border-radius: 5px;
+  }
+
+  .gift-box::after {
+    content: "";
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    background: #fff;
+    border-radius: 5px;
+  }
+
+  .ribbon {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 30px;
+    background: #ff69b4;
+    border-radius: 30px 30px 0 0;
+    box-shadow: 0 0 15px rgba(255,105,180,0.5);
+    animation: shimmerRibbon 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes shimmerRibbon {
+    from { box-shadow: 0 0 10px #ffb6c1; }
+    to { box-shadow: 0 0 25px #ff69b4, 0 0 40px #ffd1dc; }
+  }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(3deg); }
+  }
+
+  /* Secret Gift Button */
   #secretGift {
-    animation: softGlow 2s ease-in-out infinite alternate;
+    animation: softGlow 2s ease-in-out infinite alternate, floaty 3s ease-in-out infinite;
   }
 
   @keyframes softGlow {
     from { box-shadow: 0 0 10px #ffb6c1; }
     to { box-shadow: 0 0 25px #ff69b4, 0 0 50px #ffd1dc; }
+  }
+
+  @keyframes floaty {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
   }
 </style>
 </head>
@@ -268,8 +258,15 @@
 
 <!-- Main Buttons -->
 <button id="openCard">Open your surprise 🎁</button>
+
+<!-- Animated Gift Box -->
+<div class="gift-box" onclick="window.open('https://gifft.me/o/d/q33eiomqli5elcti6ibhr09t','_blank')">
+  <div class="ribbon"></div>
+</div>
+
+<!-- Secret Gift Button -->
 <button id="secretGift" onclick="window.open('https://gifft.me/o/d/q33eiomqli5elcti6ibhr09t','_blank')">
-  🎀 Open Your Secret Gift 💌
+   Open Your Secret Gift 💌
 </button>
 
 <div class="slideshow">
@@ -279,21 +276,6 @@
 <audio id="birthdayMusic" autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
-
-<!-- Surprise Card -->
-<div class="card-overlay" id="cardOverlay">
-  <div class="card-container">
-    <div class="card" id="flipCard">
-      <div class="card-side card-front">
-        💝 Click to Open 💌
-      </div>
-      <div class="card-side card-back">
-        <p>Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸</p>
-        <button class="close-btn" id="closeCard">Close 💕</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- Compliment Button -->
 <button class="compliment-btn" id="complimentBtn">💗</button>
@@ -311,26 +293,6 @@
     confetti.style.width=confetti.style.height=(5+Math.random()*10)+'px';
     document.body.appendChild(confetti);
   }
-
-  // Flip Card Logic
-  const openBtn = document.getElementById('openCard');
-  const closeBtn = document.getElementById('closeCard');
-  const overlay = document.getElementById('cardOverlay');
-  const flipCard = document.getElementById('flipCard');
-
-  openBtn.onclick = () => {
-    overlay.style.display = 'flex';
-  };
-
-  flipCard.onclick = () => {
-    flipCard.classList.toggle('is-flipped');
-  };
-
-  closeBtn.onclick = (event) => {
-    event.stopPropagation();
-    overlay.style.display = 'none';
-    flipCard.classList.remove('is-flipped');
-  };
 
   // Compliment Button Logic
   const complimentBtn = document.getElementById('complimentBtn');
