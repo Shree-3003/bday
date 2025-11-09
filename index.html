@@ -107,19 +107,6 @@
     to { transform: translateY(110vh) rotate(360deg); }
   }
 
-  /* Balloons */
-  .balloon {
-    position: absolute;
-    font-size: 2em;
-    cursor: pointer;
-    animation: balloonFloat 10s linear infinite;
-  }
-
-  @keyframes balloonFloat {
-    0% { transform: translateY(100vh) rotate(0deg); }
-    100% { transform: translateY(-120vh) rotate(360deg); }
-  }
-
   /* Heartfelt message */
   .message {
     margin-top: 20px;
@@ -130,12 +117,6 @@
     animation: fadeIn 3s ease forwards 2s;
     opacity: 0;
     line-height: 1.6;
-  }
-
-  /* Floating hearts animation */
-  @keyframes floatUp {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-100vh); opacity: 0; }
   }
 </style>
 </head>
@@ -152,7 +133,7 @@
   Here’s to us — forever and always 🫶💜
 </div>
 
-<!-- Your Image -->
+<!-- Image -->
 <div class="slideshow">
   <img src="Gemini_Generated_Image_axk7snaxk7snaxk7.png" class="slide">
 </div>
@@ -174,56 +155,6 @@
     confetti.style.width=confetti.style.height=(5+Math.random()*10)+'px';
     document.body.appendChild(confetti);
   }
-
-  // Balloons
-  const balloonMessages = ["You're amazing! 💖", "Besties forever! 🌸", "Love you so much! 🥰", "You’re the sweetest! 🍰"];
-  for(let i=0;i<12;i++){
-    const balloon = document.createElement('div');
-    balloon.classList.add('balloon');
-    balloon.textContent = '🎈';
-    balloon.style.left = Math.random()*90+'vw';
-    balloon.style.animationDuration = (8+Math.random()*5)+'s';
-    balloon.onclick = () => alert(balloonMessages[Math.floor(Math.random()*balloonMessages.length)]);
-    document.body.appendChild(balloon);
-  }
-
-  // 🎁 Surprise floating messages
-  const surpriseMessages = [
-    "You’re my favorite person 💕",
-    "No one gets me like you do ✨",
-    "You make everything better 🤍",
-    "Thank you for being you 🌸",
-    "Forever my favorite human 💜"
-  ];
-  function showSurprise() {
-    const note = document.createElement('div');
-    note.textContent = surpriseMessages[Math.floor(Math.random()*surpriseMessages.length)];
-    note.style.position = 'absolute';
-    note.style.left = Math.random()*80 + 'vw';
-    note.style.top = Math.random()*70 + 'vh';
-    note.style.background = '#fff5f7';
-    note.style.padding = '10px 20px';
-    note.style.borderRadius = '20px';
-    note.style.boxShadow = '0 0 10px rgba(0,0,0,0.1)';
-    note.style.animation = 'fadeIn 1s ease forwards';
-    note.style.color = '#d63384';
-    note.style.fontSize = '1.1em';
-    document.body.appendChild(note);
-    setTimeout(()=>note.remove(),3000);
-  }
-  setInterval(showSurprise, 4000);
-
-  // 💜 Floating hearts
-  setInterval(() => {
-    const heart = document.createElement('div');
-    heart.textContent = '💜';
-    heart.style.position = 'absolute';
-    heart.style.left = Math.random() * 100 + 'vw';
-    heart.style.fontSize = Math.random() * 20 + 20 + 'px';
-    heart.style.animation = 'floatUp 5s ease forwards';
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-  }, 1000);
 </script>
 
 </body>
