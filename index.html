@@ -68,7 +68,6 @@
     to { opacity: 1; }
   }
 
-  /* Image box */
   .slideshow {
     position: relative;
     width: 80%;
@@ -113,7 +112,7 @@
     to { transform: translateY(110vh) rotate(360deg); }
   }
 
-  /* Heartfelt message */
+  /* Message */
   .message {
     margin-top: 20px;
     max-width: 600px;
@@ -125,7 +124,7 @@
     line-height: 1.6;
   }
 
-  /* Surprise Card Styles */
+  /* Surprise Card (Flip animation) */
   .card-overlay {
     display: none;
     position: fixed;
@@ -138,24 +137,49 @@
     z-index: 100;
   }
 
+  .card-container {
+    perspective: 1000px;
+  }
+
   .card {
+    width: 300px;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+  }
+
+  .card.is-flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
     background: #fff;
     border-radius: 20px;
-    padding: 30px;
     box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    text-align: center;
-    animation: popIn 0.6s ease forwards;
-    max-width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
 
-  @keyframes popIn {
-    from { transform: scale(0.5); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-
-  .card p {
+  .card-front {
+    background: #FFD1DC;
     color: #d63384;
     font-size: 1.5em;
+  }
+
+  .card-back {
+    background: #fff;
+    color: #d63384;
+    font-size: 1.3em;
+    transform: rotateY(180deg);
+    text-align: center;
+    padding: 20px;
   }
 
   .close-btn {
@@ -173,6 +197,7 @@
     background: #FF8FAB;
     transform: scale(1.1);
   }
+
 </style>
 </head>
 <body>
@@ -181,28 +206,32 @@
 <p>This day is all about YOU!</p>
 <button id="openCard">Open your surprise 🎁</button>
 
-<!-- Heartfelt message -->
 <div class="message">
-  💌 Mii, you make the world brighter just by being in it.  
-  Thank you for all the laughter, chaos, and love we share.  
+  💌 Mii, you make the world brighter just by being in it.<br>
+  Thank you for all the laughter, chaos, and love we share.<br>
   Here’s to us — forever and always 🫶💜
 </div>
 
-<!-- Image -->
 <div class="slideshow">
   <img src="Gemini_Generated_Image_axk7snaxk7snaxk7.png" class="slide">
 </div>
 
-<!-- Music -->
 <audio id="birthdayMusic" autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Surprise Card -->
+<!-- Flip Card Overlay -->
 <div class="card-overlay" id="cardOverlay">
-  <div class="card">
-    <p>Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸</p>
-    <button class="close-btn" id="closeCard">Close 💕</button>
+  <div class="card-container">
+    <div class="card" id="flipCard">
+      <div class="card-side card-front">
+        💝 Click to Open 💌
+      </div>
+      <div class="card-side card-back">
+        <p>Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸</p>
+        <button class="close-btn" id="closeCard">Close 💕</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -219,17 +248,24 @@
     document.body.appendChild(confetti);
   }
 
-  // Surprise card toggle
+  // Surprise card flip
   const openBtn = document.getElementById('openCard');
   const closeBtn = document.getElementById('closeCard');
   const overlay = document.getElementById('cardOverlay');
+  const flipCard = document.getElementById('flipCard');
 
   openBtn.onclick = () => {
     overlay.style.display = 'flex';
   };
 
-  closeBtn.onclick = () => {
+  flipCard.onclick = () => {
+    flipCard.classList.toggle('is-flipped');
+  };
+
+  closeBtn.onclick = (event) => {
+    event.stopPropagation(); // Prevent flipping on close
     overlay.style.display = 'none';
+    flipCard.classList.remove('is-flipped');
   };
 </script>
 
