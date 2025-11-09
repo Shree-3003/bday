@@ -26,16 +26,16 @@
     100% { background-position: right bottom; }
   }
 
-  /* Floating sparkles */
+  /* Floating sparkles (fixed image texture) */
   body::before {
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('https://i.imgur.com/3fJ1P48.png');
-    opacity: 0.3;
+    background: url('https://www.transparenttextures.com/patterns/tiny-stars.png');
+    opacity: 0.35;
     pointer-events: none;
-    animation: sparkle 6s linear infinite;
+    animation: sparkle 8s linear infinite;
   }
 
   @keyframes sparkle {
