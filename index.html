@@ -249,13 +249,28 @@
     background: #ff8fab;
     transform: scale(1.1);
   }
+
+  /* Secret Gift Button Glow */
+  #secretGift {
+    animation: softGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes softGlow {
+    from { box-shadow: 0 0 10px #ffb6c1; }
+    to { box-shadow: 0 0 25px #ff69b4, 0 0 50px #ffd1dc; }
+  }
 </style>
 </head>
 <body>
 
 <h1>🎉 Happy Birthday Mii! 🎂</h1>
 <p>This day is all about YOU!</p>
+
+<!-- Main Buttons -->
 <button id="openCard">Open your surprise 🎁</button>
+<button id="secretGift" onclick="window.open('https://gifft.me/o/d/q33eiomqli5elcti6ibhr09t','_blank')">
+  🎀 Open Your Secret Gift 💌
+</button>
 
 <div class="slideshow">
   <img src="Gemini_Generated_Image_axk7snaxk7snaxk7.png" class="slide">
@@ -274,10 +289,6 @@
       </div>
       <div class="card-side card-back">
         <p>Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸</p>
-        <button class="close-btn" 
-          onclick="window.open('https://gifft.me/o/d/q33eiomqli5elcti6ibhr09t','_blank')">
-          🎀 Open Your Secret Gift 💌
-        </button>
         <button class="close-btn" id="closeCard">Close 💕</button>
       </div>
     </div>
