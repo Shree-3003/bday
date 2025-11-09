@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Mii!</title>
+<title>Happy Birthday Mii! 💖</title>
 <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
 <style>
   body {
@@ -19,6 +19,7 @@
     background-size: 200% 200%;
     animation: shimmer 10s ease-in-out infinite alternate;
     position: relative;
+    cursor: url('https://cdn-icons-png.flaticon.com/128/210/210545.png'), auto;
   }
 
   @keyframes shimmer {
@@ -31,10 +32,10 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/tiny-stars.png');
-    opacity: 0.35;
+    background: url('https://cdn.pixabay.com/photo/2016/11/18/13/47/stars-1837306_960_720.png');
+    opacity: 0.3;
     pointer-events: none;
-    animation: sparkle 8s linear infinite;
+    animation: sparkle 6s linear infinite;
   }
 
   @keyframes sparkle {
@@ -43,51 +44,41 @@
   }
 
   h1 {
-    font-size: 3.2em;
-    color: #ff69b4;
-    text-shadow: 0 0 10px #fff, 0 0 25px #ff69b4;
-    animation: glow 3s ease-in-out infinite alternate, fadeIn 2s ease forwards;
-    opacity: 0;
-    z-index: 2;
+    font-size: 3em;
+    color: #FF69B4;
+    text-shadow: 0 0 10px #fff, 0 0 20px #FF69B4;
+    animation: glow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from { text-shadow: 0 0 10px #fff, 0 0 20px #FFB6C1; }
+    to { text-shadow: 0 0 20px #FF69B4, 0 0 40px #FFD1DC; }
   }
 
   p {
-    font-size: 1.5em;
+    font-size: 1.3em;
     color: #555;
-    animation: fadeIn 2s ease forwards 0.5s;
-    opacity: 0;
-    z-index: 2;
+    margin-bottom: 15px;
   }
 
-  button {
-    margin-top: 20px;
+  .button {
+    margin: 10px;
     padding: 12px 25px;
     font-size: 1.2em;
     border: none;
     border-radius: 15px;
-    background-color: #ffb6c1;
+    background-color: #FFB6C1;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
-    animation: fadeIn 2s ease forwards 1s;
-    opacity: 0;
-    z-index: 2;
   }
 
-  button:hover {
+  .button:hover {
     transform: scale(1.1);
-    background: #ff8fab;
-    box-shadow: 0 0 15px #ff69b4, 0 0 30px #ffd1dc;
+    background: #FF8FAB;
+    box-shadow: 0 0 15px #FF69B4, 0 0 30px #FFD1DC;
   }
 
-  @keyframes glow {
-    from { text-shadow: 0 0 10px #fff, 0 0 20px #ffb6c1; }
-    to { text-shadow: 0 0 20px #ff69b4, 0 0 40px #ffd1dc; }
-  }
-
-  @keyframes fadeIn {
-    to { opacity: 1; }
-  }
-
+  /* Slideshow Image with glowing frame */
   .slideshow {
     position: relative;
     width: 80%;
@@ -96,9 +87,14 @@
     margin-top: 30px;
     overflow: hidden;
     border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
-    animation: fadeIn 2s ease forwards 1.5s;
-    z-index: 2;
+    border: 3px solid #FFB6C1;
+    box-shadow: 0 0 20px #ff99cc, 0 0 40px #ffb6c1;
+    animation: borderGlow 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes borderGlow {
+    from { box-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff99cc; }
+    to { box-shadow: 0 0 25px #ff69b4, 0 0 50px #ffb6c1; }
   }
 
   .slide {
@@ -110,12 +106,19 @@
     max-height: 100%;
     border-radius: 20px;
     object-fit: contain;
-    opacity: 0;
-    animation: fadeInImage 3s ease forwards 1.5s;
   }
 
-  @keyframes fadeInImage {
-    to { opacity: 1; }
+  /* Surprise Card */
+  .card {
+    display: none;
+    margin-top: 20px;
+    background: #fff0f5;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #ffb6c1;
+    text-align: center;
+    font-size: 1.4em;
+    color: #ff69b4;
   }
 
   /* Confetti */
@@ -127,134 +130,26 @@
     animation: fall 5s linear infinite;
     opacity: 0.8;
     border-radius: 50%;
-    z-index: 1;
   }
 
   @keyframes fall {
     to { transform: translateY(110vh) rotate(360deg); }
-  }
-
-  /* Compliment Button */
-  .compliment-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background-color: #ffb6c1;
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 1.8em;
-    cursor: pointer;
-    box-shadow: 0 0 15px #ff69b4;
-    transition: transform 0.3s, background 0.3s;
-    z-index: 3;
-  }
-
-  .compliment-btn:hover {
-    transform: scale(1.2);
-    background: #ff8fab;
-  }
-
-  .compliment-popup {
-    position: fixed;
-    bottom: 100px;
-    right: 20px;
-    background: #fff;
-    color: #d63384;
-    font-size: 1.2em;
-    padding: 15px 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: 3;
-  }
-
-  .compliment-popup.show {
-    opacity: 1;
-  }
-
-  /* Flip Card Overlay */
-  .card-overlay {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(255, 182, 193, 0.4);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-  }
-
-  .card-container {
-    perspective: 1000px;
-  }
-
-  .card {
-    width: 300px;
-    height: 200px;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 1s;
-  }
-
-  .card.is-flipped {
-    transform: rotateY(180deg);
-  }
-
-  .card-side {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-
-  .card-front {
-    background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
-    color: #d63384;
-    font-size: 1.5em;
-  }
-
-  .card-back {
-    background: #fff;
-    color: #d63384;
-    font-size: 1.3em;
-    transform: rotateY(180deg);
-    text-align: center;
-    padding: 20px;
-  }
-
-  .close-btn {
-    margin-top: 15px;
-    padding: 8px 20px;
-    border: none;
-    background: #ffb6c1;
-    border-radius: 10px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-
-  .close-btn:hover {
-    background: #ff8fab;
-    transform: scale(1.1);
   }
 </style>
 </head>
 <body>
 
 <h1>🎉 Happy Birthday Mii! 🎂</h1>
-<p>This day is all about YOU!</p>
-<button id="openCard">Open your surprise 🎁</button>
+<p>This day is all about YOU! 💖</p>
+
+<button class="button" onclick="openCard()">Open your surprise 🎁</button>
+<button class="button" onclick="pickMemory()">Pick a memory 🎀</button>
+<button class="button" onclick="petName()">Pet Name Generator 🐾</button>
+<button class="button" onclick="openGift()">Open a mini gift 🎁</button>
+
+<div class="card" id="card">
+  Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸
+</div>
 
 <div class="slideshow">
   <img src="Gemini_Generated_Image_axk7snaxk7snaxk7.png" class="slide">
@@ -263,25 +158,6 @@
 <audio id="birthdayMusic" autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
-
-<!-- Surprise Card -->
-<div class="card-overlay" id="cardOverlay">
-  <div class="card-container">
-    <div class="card" id="flipCard">
-      <div class="card-side card-front">
-        💝 Click to Open 💌
-      </div>
-      <div class="card-side card-back">
-        <p>Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸</p>
-        <button class="close-btn" id="closeCard">Close 💕</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Compliment Button -->
-<button class="compliment-btn" id="complimentBtn">💗</button>
-<div class="compliment-popup" id="complimentPopup"></div>
 
 <script>
   // Confetti
@@ -296,45 +172,42 @@
     document.body.appendChild(confetti);
   }
 
-  // Flip Card Logic
-  const openBtn = document.getElementById('openCard');
-  const closeBtn = document.getElementById('closeCard');
-  const overlay = document.getElementById('cardOverlay');
-  const flipCard = document.getElementById('flipCard');
+  // Surprise Card
+  function openCard(){
+    document.getElementById('card').style.display = 'block';
+  }
 
-  openBtn.onclick = () => {
-    overlay.style.display = 'flex';
-  };
-
-  flipCard.onclick = () => {
-    flipCard.classList.toggle('is-flipped');
-  };
-
-  closeBtn.onclick = (event) => {
-    event.stopPropagation();
-    overlay.style.display = 'none';
-    flipCard.classList.remove('is-flipped');
-  };
-
-  // Compliment Button Logic
-  const complimentBtn = document.getElementById('complimentBtn');
-  const complimentPopup = document.getElementById('complimentPopup');
-  const compliments = [
-    "You deserve all the love🩷",
-    "You make the world sparkle a bit more 🌸",
-    "Happy 22 Bestfriend🫶",
-    "Have a great year ahead✨"
-    
+  // Lucky Draw Memories
+  const memories = [
+    "Our endless late-night talks 💬✨",
+    "That one chaotic shopping trip 🤪🛍️",
+    "Laughing until we cried 😂💕",
+    "Our secret inside jokes that no one gets 😌💫",
+    "That moment we realized no one can replace us 🤍"
   ];
+  function pickMemory(){
+    alert(memories[Math.floor(Math.random()*memories.length)]);
+  }
 
-  complimentBtn.onclick = () => {
-    const random = compliments[Math.floor(Math.random() * compliments.length)];
-    complimentPopup.textContent = random;
-    complimentPopup.classList.add('show');
-    setTimeout(() => {
-      complimentPopup.classList.remove('show');
-    }, 2500);
-  };
+  // Pet Name Generator
+  const petNames = [
+    "My Starfish 🌟", "Drama Queen 👑", "Mi Mi 🩷", "Little Chaos 💫", "Cuddle Bug 🧸", "Queen of Giggles 😆"
+  ];
+  function petName(){
+    alert("Your nickname: " + petNames[Math.floor(Math.random()*petNames.length)]);
+  }
+
+  // Mini Digital Gift Box
+  const gifts = [
+    "🌷 A flower just for you!",
+    "💗 A heart full of love!",
+    "🍫 A bar of virtual chocolate!",
+    "🌈 A rainbow for your soul!",
+    "🧁 A cupcake of happiness!"
+  ];
+  function openGift(){
+    alert(gifts[Math.floor(Math.random()*gifts.length)]);
+  }
 </script>
 
 </body>
