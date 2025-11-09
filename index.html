@@ -74,7 +74,7 @@
     transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
     animation: fadeIn 2s ease forwards 1s;
     opacity: 0;
-    z-index: 2;
+    z-index: 3;
   }
 
   button:hover {
@@ -93,9 +93,9 @@
   }
 
   .slideshow {
-    width: 90%;
-    max-width: 450px;
-    height: auto;
+    width: 80%;
+    max-width: 500px;
+    height: 300px;
     margin-top: 25px;
     overflow: hidden;
     border-radius: 20px;
@@ -106,15 +106,29 @@
 
   .slide {
     width: 100%;
-    height: auto;
+    height: 100%;
     border-radius: 20px;
-    display: block;
+    object-fit: contain;
     opacity: 0;
     animation: fadeInImage 3s ease forwards 1.5s;
   }
 
   @keyframes fadeInImage {
     to { opacity: 1; }
+  }
+
+  .floating-heart {
+    font-size: 2em;
+    color: #ff69b4;
+    animation: float 3s ease-in-out infinite;
+    cursor: pointer;
+    margin-top: 15px;
+    z-index: 3;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); opacity: 0.9; }
+    50% { transform: translateY(-6px); opacity: 1; }
   }
 
   .confetti {
@@ -132,63 +146,7 @@
     to { transform: translateY(110vh) rotate(360deg); }
   }
 
-  .floating-heart {
-    font-size: 2em;
-    color: #ff69b4;
-    animation: float 3s ease-in-out infinite;
-    cursor: pointer;
-    margin-top: 15px;
-    z-index: 2;
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); opacity: 0.9; }
-    50% { transform: translateY(-6px); opacity: 1; }
-  }
-
-  .compliment-btn {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    background-color: #ffb6c1;
-    border: none;
-    border-radius: 50%;
-    width: 55px;
-    height: 55px;
-    font-size: 1.6em;
-    cursor: pointer;
-    box-shadow: 0 0 15px #ff69b4;
-    transition: transform 0.3s, background 0.3s;
-    z-index: 3;
-  }
-
-  .compliment-btn:hover {
-    transform: scale(1.2);
-    background: #ff8fab;
-  }
-
-  .compliment-popup {
-    position: fixed;
-    bottom: 90px;
-    right: 20px;
-    background: #fff;
-    color: #d63384;
-    font-size: 1.1em;
-    padding: 10px 18px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    z-index: 3;
-    max-width: 70%;
-    text-align: center;
-  }
-
-  .compliment-popup.show {
-    opacity: 1;
-  }
-
-  /* Surprise Card */
+  /* Card Overlay */
   .card-overlay {
     display: none;
     position: fixed;
@@ -217,17 +175,48 @@
     animation: fadeIn 0.8s ease forwards;
   }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0); opacity: 0.9; }
-    50% { transform: translateY(-6px); opacity: 1; }
+  .compliment-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background-color: #ffb6c1;
+    border: none;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    font-size: 1.6em;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff69b4;
+    transition: transform 0.3s, background 0.3s;
+    z-index: 3;
+  }
+
+  .compliment-popup {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    background: #fff;
+    color: #d63384;
+    font-size: 1.1em;
+    padding: 10px 18px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 3;
+    max-width: 70%;
+    text-align: center;
+  }
+
+  .compliment-popup.show {
+    opacity: 1;
   }
 
   @media (max-width: 480px) {
     h1 { font-size: 2em; }
     p { font-size: 1em; }
-    .compliment-btn { width: 50px; height: 50px; font-size: 1.4em; }
-    .floating-heart { font-size: 1.8em; }
     button { font-size: 0.9em; }
+    .card { width: 260px; height: 180px; font-size: 1.1em; }
   }
 </style>
 </head>
@@ -246,19 +235,18 @@
   💖
 </div>
 
-<!-- Surprise Card -->
 <div class="card-overlay" id="cardOverlay">
   <div class="card">
     Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸
   </div>
 </div>
 
+<button class="compliment-btn" id="complimentBtn">💗</button>
+<div class="compliment-popup" id="complimentPopup"></div>
+
 <audio autoplay loop>
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
-
-<button class="compliment-btn" id="complimentBtn">💗</button>
-<div class="compliment-popup" id="complimentPopup"></div>
 
 <script>
   // Confetti
@@ -273,15 +261,21 @@
     document.body.appendChild(confetti);
   }
 
-  // Show Surprise Card
+  // Fix tap/click for card
   const openBtn = document.getElementById('openCard');
   const overlay = document.getElementById('cardOverlay');
-  openBtn.addEventListener('click', () => {
+
+  function showCard() {
     overlay.style.display = 'flex';
-  });
-  overlay.addEventListener('click', () => {
+  }
+  function hideCard() {
     overlay.style.display = 'none';
-  });
+  }
+
+  openBtn.addEventListener('click', showCard);
+  openBtn.addEventListener('touchstart', showCard);
+  overlay.addEventListener('click', hideCard);
+  overlay.addEventListener('touchstart', hideCard);
 
   // Compliments
   const complimentBtn = document.getElementById('complimentBtn');
@@ -301,5 +295,6 @@
     setTimeout(() => complimentPopup.classList.remove('show'), 2500);
   };
 </script>
+
 </body>
 </html>
