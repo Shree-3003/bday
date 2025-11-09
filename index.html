@@ -70,28 +70,27 @@
 
   /* Image box */
   .slideshow {
-  position: relative;
-  width: 80%;
-  max-width: 500px;
-  height: 300px;
-  margin-top: 30px;
-  overflow: hidden;
-  border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  animation: fadeIn 2s ease forwards 1.5s;
-}
+    position: relative;
+    width: 80%;
+    max-width: 500px;
+    height: 300px;
+    margin-top: 30px;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    animation: fadeIn 2s ease forwards 1.5s;
+  }
 
-.slide {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 20px;
-  object-fit: contain;
-}
-
+  .slide {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 20px;
+    object-fit: contain;
+  }
 
   /* Confetti */
   .confetti {
@@ -108,7 +107,7 @@
     to { transform: translateY(110vh) rotate(360deg); }
   }
 
-  /* Animated Balloons */
+  /* Balloons */
   .balloon {
     position: absolute;
     font-size: 2em;
@@ -120,6 +119,24 @@
     0% { transform: translateY(100vh) rotate(0deg); }
     100% { transform: translateY(-120vh) rotate(360deg); }
   }
+
+  /* Heartfelt message */
+  .message {
+    margin-top: 20px;
+    max-width: 600px;
+    text-align: center;
+    font-size: 1.4em;
+    color: #6a4c93;
+    animation: fadeIn 3s ease forwards 2s;
+    opacity: 0;
+    line-height: 1.6;
+  }
+
+  /* Floating hearts animation */
+  @keyframes floatUp {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-100vh); opacity: 0; }
+  }
 </style>
 </head>
 <body>
@@ -127,6 +144,13 @@
 <h1>🎉 Happy Birthday Mii! 🎂</h1>
 <p>This day is all about YOU!</p>
 <button onclick="alert('Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸')">Open your surprise 🎁</button>
+
+<!-- Heartfelt message -->
+<div class="message">
+  💌 Mii, you make the world brighter just by being in it.  
+  Thank you for all the laughter, chaos, and love we share.  
+  Here’s to us — forever and always 🫶💜
+</div>
 
 <!-- Your Image -->
 <div class="slideshow">
@@ -162,6 +186,44 @@
     balloon.onclick = () => alert(balloonMessages[Math.floor(Math.random()*balloonMessages.length)]);
     document.body.appendChild(balloon);
   }
+
+  // 🎁 Surprise floating messages
+  const surpriseMessages = [
+    "You’re my favorite person 💕",
+    "No one gets me like you do ✨",
+    "You make everything better 🤍",
+    "Thank you for being you 🌸",
+    "Forever my favorite human 💜"
+  ];
+  function showSurprise() {
+    const note = document.createElement('div');
+    note.textContent = surpriseMessages[Math.floor(Math.random()*surpriseMessages.length)];
+    note.style.position = 'absolute';
+    note.style.left = Math.random()*80 + 'vw';
+    note.style.top = Math.random()*70 + 'vh';
+    note.style.background = '#fff5f7';
+    note.style.padding = '10px 20px';
+    note.style.borderRadius = '20px';
+    note.style.boxShadow = '0 0 10px rgba(0,0,0,0.1)';
+    note.style.animation = 'fadeIn 1s ease forwards';
+    note.style.color = '#d63384';
+    note.style.fontSize = '1.1em';
+    document.body.appendChild(note);
+    setTimeout(()=>note.remove(),3000);
+  }
+  setInterval(showSurprise, 4000);
+
+  // 💜 Floating hearts
+  setInterval(() => {
+    const heart = document.createElement('div');
+    heart.textContent = '💜';
+    heart.style.position = 'absolute';
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = Math.random() * 20 + 20 + 'px';
+    heart.style.animation = 'floatUp 5s ease forwards';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }, 1000);
 </script>
 
 </body>
