@@ -90,6 +90,12 @@
     max-height: 100%;
     border-radius: 20px;
     object-fit: contain;
+    opacity: 0;
+    animation: fadeInImage 3s ease forwards 1.5s;
+  }
+
+  @keyframes fadeInImage {
+    to { opacity: 1; }
   }
 
   /* Confetti */
@@ -118,13 +124,62 @@
     opacity: 0;
     line-height: 1.6;
   }
+
+  /* Surprise Card Styles */
+  .card-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 182, 193, 0.4);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    text-align: center;
+    animation: popIn 0.6s ease forwards;
+    max-width: 350px;
+  }
+
+  @keyframes popIn {
+    from { transform: scale(0.5); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .card p {
+    color: #d63384;
+    font-size: 1.5em;
+  }
+
+  .close-btn {
+    margin-top: 15px;
+    padding: 8px 20px;
+    border: none;
+    background: #FFB6C1;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .close-btn:hover {
+    background: #FF8FAB;
+    transform: scale(1.1);
+  }
 </style>
 </head>
 <body>
 
 <h1>🎉 Happy Birthday Mii! 🎂</h1>
 <p>This day is all about YOU!</p>
-<button onclick="alert('Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸')">Open your surprise 🎁</button>
+<button id="openCard">Open your surprise 🎁</button>
 
 <!-- Heartfelt message -->
 <div class="message">
@@ -143,6 +198,14 @@
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Surprise Card -->
+<div class="card-overlay" id="cardOverlay">
+  <div class="card">
+    <p>Ti amo 💖 Sei la mia persona preferita nel mondo! 🌸</p>
+    <button class="close-btn" id="closeCard">Close 💕</button>
+  </div>
+</div>
+
 <script>
   // Confetti
   const confettiCount = 50;
@@ -155,6 +218,19 @@
     confetti.style.width=confetti.style.height=(5+Math.random()*10)+'px';
     document.body.appendChild(confetti);
   }
+
+  // Surprise card toggle
+  const openBtn = document.getElementById('openCard');
+  const closeBtn = document.getElementById('closeCard');
+  const overlay = document.getElementById('cardOverlay');
+
+  openBtn.onclick = () => {
+    overlay.style.display = 'flex';
+  };
+
+  closeBtn.onclick = () => {
+    overlay.style.display = 'none';
+  };
 </script>
 
 </body>
