@@ -58,11 +58,10 @@
     animation: fadeIn 2s ease forwards 0.5s;
     opacity: 0;
     z-index: 2;
-    margin-bottom: 10px;
   }
 
   button {
-    margin-top: 15px;
+    margin-top: 20px;
     padding: 12px 25px;
     font-size: 1.2em;
     border: none;
@@ -90,15 +89,16 @@
     to { opacity: 1; }
   }
 
+  /* Image Section */
   .slideshow {
     position: relative;
     width: 80%;
-    max-width: 400px;
-    height: 220px;
-    margin-top: 20px;
+    max-width: 500px;
+    height: 300px;
+    margin-top: 30px;
     overflow: hidden;
     border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
     animation: fadeIn 2s ease forwards 1.5s;
     z-index: 2;
   }
@@ -108,10 +108,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     border-radius: 20px;
-    object-fit: cover;
+    object-fit: contain;
     opacity: 0;
     animation: fadeInImage 3s ease forwards 1.5s;
   }
@@ -177,29 +177,18 @@
     opacity: 1;
   }
 
-  /* Floating Heart */
+  /* Floating Heart for Secret Gift */
   .floating-heart {
-    font-size: 2em;
+    font-size: 2.2em;
     color: #ff69b4;
     animation: float 3s ease-in-out infinite;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: 15px;
   }
 
   @keyframes float {
     0%, 100% { transform: translateY(0); opacity: 0.9; }
     50% { transform: translateY(-6px); opacity: 1; }
-  }
-
-  /* Secret Gift Button */
-  #secretGift {
-    animation: softGlow 2s ease-in-out infinite alternate;
-    margin-top: 10px;
-  }
-
-  @keyframes softGlow {
-    from { box-shadow: 0 0 10px #ffb6c1; }
-    to { box-shadow: 0 0 25px #ff69b4, 0 0 50px #ffd1dc; }
   }
 </style>
 </head>
@@ -207,21 +196,15 @@
 
 <h1>🎉 Happy Birthday Mii! 🎂</h1>
 <p>This day is all about YOU!</p>
-
 <button id="openCard">Open your surprise 🎁</button>
-
-<!-- Floating Heart (clickable) -->
-<div class="floating-heart" onclick="window.open('https://gifft.me/o/d/q33eiomqli5elcti6ibhr09t','_blank')">
-  💝
-</div>
-
-<!-- Secret Gift Button -->
-<button id="secretGift" onclick="window.open('https://gifft.me/o/d/q33eiomqli5elcti6ibhr09t','_blank')">
-  🎀 Open Your Secret Gift 💌
-</button>
 
 <div class="slideshow">
   <img src="Gemini_Generated_Image_axk7snaxk7snaxk7.png" class="slide">
+</div>
+
+<!-- Floating heart opens your secret gift -->
+<div class="floating-heart" onclick="window.open('https://gifft.me/o/d/q33eiomqli5elcti6ibhr09t','_blank')">
+  🩷
 </div>
 
 <audio id="birthdayMusic" autoplay loop>
