@@ -14,28 +14,29 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #FFD1DC, #FFECB3);
     overflow: hidden;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
     animation: gradientShift 10s ease infinite alternate;
   }
 
   @keyframes gradientShift {
-    0% { background: linear-gradient(135deg, #FFD1DC, #FFECB3); }
-    50% { background: linear-gradient(135deg, #FFECB3, #FFF7AE); }
-    100% { background: linear-gradient(135deg, #FFD1DC, #FFE6F0); }
+    0% { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+    50% { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+    100% { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
   }
 
   h1 {
     font-size: 3.2em;
-    color: #FF69B4;
-    text-shadow: 0 0 10px #fff, 0 0 20px #FF69B4;
+    color: #fff;
+    text-shadow: 0 0 10px #ff69b4, 0 0 25px #fff;
     animation: glow 3s ease-in-out infinite alternate, fadeIn 2s ease forwards;
     opacity: 0;
   }
 
   p {
     font-size: 1.5em;
-    color: #555;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
     animation: fadeIn 2s ease forwards 0.5s;
     opacity: 0;
   }
@@ -46,7 +47,7 @@
     font-size: 1.2em;
     border: none;
     border-radius: 15px;
-    background-color: #FFB6C1;
+    background-color: #ffb6c1;
     cursor: pointer;
     transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
     animation: fadeIn 2s ease forwards 1s;
@@ -55,13 +56,13 @@
 
   button:hover {
     transform: scale(1.1);
-    background: #FF8FAB;
-    box-shadow: 0 0 15px #FF69B4, 0 0 30px #FFD1DC;
+    background: #ff8fab;
+    box-shadow: 0 0 15px #ff69b4, 0 0 30px #ffd1dc;
   }
 
   @keyframes glow {
-    from { text-shadow: 0 0 10px #fff, 0 0 20px #FFB6C1; }
-    to { text-shadow: 0 0 20px #FF69B4, 0 0 40px #FFD1DC; }
+    from { text-shadow: 0 0 10px #fff, 0 0 20px #ffb6c1; }
+    to { text-shadow: 0 0 20px #ff69b4, 0 0 40px #ffd1dc; }
   }
 
   @keyframes fadeIn {
@@ -76,7 +77,7 @@
     margin-top: 30px;
     overflow: hidden;
     border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
     animation: fadeIn 2s ease forwards 1.5s;
   }
 
@@ -97,7 +98,6 @@
     to { opacity: 1; }
   }
 
-  /* Confetti */
   .confetti {
     position: absolute;
     width: 10px;
@@ -108,23 +108,23 @@
     border-radius: 50%;
   }
 
-  @keyframes fall { 
+  @keyframes fall {
     to { transform: translateY(110vh) rotate(360deg); }
   }
 
-  /* Message */
   .message {
     margin-top: 20px;
     max-width: 600px;
     text-align: center;
     font-size: 1.4em;
-    color: #6a4c93;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
     animation: fadeIn 3s ease forwards 2s;
     opacity: 0;
     line-height: 1.6;
   }
 
-  /* Surprise Card (Flip animation) */
+  /* Flip Card */
   .card-overlay {
     display: none;
     position: fixed;
@@ -168,7 +168,7 @@
   }
 
   .card-front {
-    background: #FFD1DC;
+    background: linear-gradient(135deg, #ffd1dc, #ffe6f0);
     color: #d63384;
     font-size: 1.5em;
   }
@@ -186,7 +186,7 @@
     margin-top: 15px;
     padding: 8px 20px;
     border: none;
-    background: #FFB6C1;
+    background: #ffb6c1;
     border-radius: 10px;
     font-size: 1em;
     cursor: pointer;
@@ -194,10 +194,9 @@
   }
 
   .close-btn:hover {
-    background: #FF8FAB;
+    background: #ff8fab;
     transform: scale(1.1);
   }
-
 </style>
 </head>
 <body>
@@ -220,7 +219,6 @@
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Flip Card Overlay -->
 <div class="card-overlay" id="cardOverlay">
   <div class="card-container">
     <div class="card" id="flipCard">
@@ -236,7 +234,6 @@
 </div>
 
 <script>
-  // Confetti
   const confettiCount = 50;
   for(let i=0;i<confettiCount;i++){
     const confetti=document.createElement('div');
@@ -248,7 +245,6 @@
     document.body.appendChild(confetti);
   }
 
-  // Surprise card flip
   const openBtn = document.getElementById('openCard');
   const closeBtn = document.getElementById('closeCard');
   const overlay = document.getElementById('cardOverlay');
@@ -263,7 +259,7 @@
   };
 
   closeBtn.onclick = (event) => {
-    event.stopPropagation(); // Prevent flipping on close
+    event.stopPropagation();
     overlay.style.display = 'none';
     flipCard.classList.remove('is-flipped');
   };
