@@ -26,7 +26,6 @@
     100% { background-position: right bottom; }
   }
 
-  /* Floating sparkles (fixed image texture) */
   body::before {
     content: '';
     position: absolute;
@@ -119,19 +118,59 @@
     to { opacity: 1; }
   }
 
-  .confetti {
+  /* Butterfly animation */
+  .butterfly {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    top: -10px;
-    animation: fall 5s linear infinite;
-    opacity: 0.8;
-    border-radius: 50%;
-    z-index: 1;
+    top: -50px;
+    font-size: 1.8em;
+    animation: fly 10s linear infinite;
+    opacity: 0.9;
   }
 
-  @keyframes fall {
-    to { transform: translateY(110vh) rotate(360deg); }
+  @keyframes fly {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(720deg); }
+  }
+
+  /* Compliment Button */
+  .compliment-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #ffb6c1;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8em;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff69b4;
+    transition: transform 0.3s, background 0.3s;
+    z-index: 3;
+  }
+
+  .compliment-btn:hover {
+    transform: scale(1.2);
+    background: #ff8fab;
+  }
+
+  .compliment-popup {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    background: #fff;
+    color: #d63384;
+    font-size: 1.2em;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 105, 180, 0.4);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 3;
+  }
+
+  .compliment-popup.show {
+    opacity: 1;
   }
 
   /* Flip Card Overlay */
@@ -238,17 +277,22 @@
   </div>
 </div>
 
+<!-- Compliment Button -->
+<button class="compliment-btn" id="complimentBtn">💗</button>
+<div class="compliment-popup" id="complimentPopup"></div>
+
 <script>
-  // Confetti
-  const confettiCount = 50;
-  for(let i=0;i<confettiCount;i++){
-    const confetti=document.createElement('div');
-    confetti.classList.add('confetti');
-    confetti.style.left=Math.random()*window.innerWidth+'px';
-    confetti.style.backgroundColor=`hsl(${Math.random()*360},70%,70%)`;
-    confetti.style.animationDuration=(3+Math.random()*3)+'s';
-    confetti.style.width=confetti.style.height=(5+Math.random()*10)+'px';
-    document.body.appendChild(confetti);
+  // Falling butterflies
+  const butterflyCount = 20;
+  const butterflyEmojis = ['🦋', '🩵', '💜', '💗'];
+  for (let i = 0; i < butterflyCount; i++) {
+    const butterfly = document.createElement('div');
+    butterfly.classList.add('butterfly');
+    butterfly.textContent = butterflyEmojis[Math.floor(Math.random() * butterflyEmojis.length)];
+    butterfly.style.left = Math.random() * 100 + 'vw';
+    butterfly.style.animationDuration = 6 + Math.random() * 5 + 's';
+    butterfly.style.fontSize = 1 + Math.random() * 1.5 + 'em';
+    document.body.appendChild(butterfly);
   }
 
   // Flip Card Logic
@@ -269,6 +313,27 @@
     event.stopPropagation();
     overlay.style.display = 'none';
     flipCard.classList.remove('is-flipped');
+  };
+
+  // Compliment Button Logic
+  const complimentBtn = document.getElementById('complimentBtn');
+  const complimentPopup = document.getElementById('complimentPopup');
+  const compliments = [
+    "You deserve all the love and chaos-free coffee today ☕💗",
+    "You make the world sparkle a bit more 🌸",
+    "If sunshine had a bestie, it’d be you ☀️💞",
+    "You're my comfort person 🫶",
+    "You deserve all the🩷",
+    "The world’s most lovable chaos queen 💕"
+  ];
+
+  complimentBtn.onclick = () => {
+    const random = compliments[Math.floor(Math.random() * compliments.length)];
+    complimentPopup.textContent = random;
+    complimentPopup.classList.add('show');
+    setTimeout(() => {
+      complimentPopup.classList.remove('show');
+    }, 2500);
   };
 </script>
 
