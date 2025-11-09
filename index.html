@@ -134,19 +134,7 @@
     to { transform: translateY(110vh) rotate(360deg); }
   }
 
-  .message {
-    margin-top: 20px;
-    max-width: 600px;
-    text-align: center;
-    font-size: 1.4em;
-    color: #6a4c93;
-    animation: fadeIn 3s ease forwards 2s;
-    opacity: 0;
-    line-height: 1.6;
-    z-index: 2;
-  }
-
-  /* Flip Card */
+  /* Flip Card Overlay */
   .card-overlay {
     display: none;
     position: fixed;
@@ -227,12 +215,6 @@
 <p>This day is all about YOU!</p>
 <button id="openCard">Open your surprise 🎁</button>
 
-<div class="message">
-  💌 Mii, you make the world brighter just by being in it.<br>
-  Thank you for all the laughter, chaos, and love we share.<br>
-  Here’s to us — forever and always 🫶💜
-</div>
-
 <div class="slideshow">
   <img src="Gemini_Generated_Image_axk7snaxk7snaxk7.png" class="slide">
 </div>
@@ -241,6 +223,7 @@
   <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
 </audio>
 
+<!-- Surprise Card -->
 <div class="card-overlay" id="cardOverlay">
   <div class="card-container">
     <div class="card" id="flipCard">
@@ -268,7 +251,7 @@
     document.body.appendChild(confetti);
   }
 
-  // Card flip
+  // Flip Card Logic
   const openBtn = document.getElementById('openCard');
   const closeBtn = document.getElementById('closeCard');
   const overlay = document.getElementById('cardOverlay');
